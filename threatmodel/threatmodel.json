@@ -1,0 +1,67 @@
+{
+  "mitigations": [],
+  "exposures": [],
+  "transfers": [],
+  "acceptances": [],
+  "connections": [
+    {
+      "source_component": "#guest",
+      "destination_component": "#index",
+      "direction": "to",
+      "details": "HTTP-GET",
+      "description": "",
+      "custom": {},
+      "source": {
+        "annotation": "@connects #guest to #index with HTTP-GET",
+        "code": "# @connects #guest to #index with HTTP-GET\n@flask_app.route('/')\ndef index_page():\n    print(request.headers)\n    isUserLoggedIn = False\n    if 'token' in request.cookies:\n",
+        "filename": "/home/kali/Desktop/secure_rest_calculator-main/app/main.py",
+        "line": 1
+      }
+    },
+    {
+      "source_component": "#guest",
+      "destination_component": "#calculator",
+      "direction": "to",
+      "details": "HTTP-GET",
+      "description": "",
+      "custom": {},
+      "source": {
+        "annotation": "@connects #guest to #calculator with HTTP-GET",
+        "code": "# @connects #guest to #calculator with HTTP-GET\n@flask_app.route('/calculator', methods = ['GET'])\ndef calculator_get():\n    isUserLoggedIn = False\n    if 'token' in request.cookies:\n        isUserLoggedIn = verify_token(request.cookies['token'])\n",
+        "filename": "/home/kali/Desktop/secure_rest_calculator-main/app/main.py",
+        "line": 1
+      }
+    },
+    {
+      "source_component": "#guest",
+      "destination_component": "#logout",
+      "direction": "to",
+      "details": "HTTP-GET",
+      "description": "",
+      "custom": {},
+      "source": {
+        "annotation": "@connects #guest to #logout with HTTP-GET",
+        "code": "# @connects #guest to #logout with HTTP-GET\n@flask_app.route('/logout', methods = ['GET'])\ndef logout():\n    response = make_response(redirect('/'))\n    response.delete_cookie('token')\n    return response\n",
+        "filename": "/home/kali/Desktop/secure_rest_calculator-main/app/main.py",
+        "line": 1
+      }
+    },
+    {
+      "source_component": "#subnet",
+      "destination_component": "#web_server",
+      "direction": "to",
+      "details": "Network",
+      "description": "",
+      "custom": {},
+      "source": {
+        "annotation": "@connects #subnet to #web_server with Network",
+        "code": "# @connects #subnet to #web_server with Network\nresource \"aws_instance\" \"cyber94_calculator2_asaleh_webserver_tf\" {\n    ami = var.var_aws_ami_ubuntu_1804\n    instance_type = \"t2.micro\"\n    subnet_id = var.var_web_subnet_id\n    associate_public_ip_address = true\n",
+        "filename": "/home/kali/Desktop/secure_rest_calculator-main/Terraform-infra-modular/modules/webserver/main.tf",
+        "line": 1
+      }
+    }
+  ],
+  "reviews": [],
+  "tests": [],
+  "run_id": "54b44f2ac28247dcbf5fe156d2bc52cc"
+}

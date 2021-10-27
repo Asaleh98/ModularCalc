@@ -1,0 +1,105 @@
+{
+  "components": {
+    "#guest": {
+      "id": "#guest",
+      "run_id": "54b44f2ac28247dcbf5fe156d2bc52cc",
+      "name": "External:guest",
+      "description": "",
+      "paths": [
+        [
+          "External"
+        ],
+        []
+      ],
+      "custom": {}
+    },
+    "#index": {
+      "id": "#index",
+      "run_id": "54b44f2ac28247dcbf5fe156d2bc52cc",
+      "name": "CalcApp:Web:Server:Index",
+      "description": "",
+      "paths": [
+        [
+          "CalcApp",
+          "Web",
+          "Server"
+        ],
+        []
+      ],
+      "custom": {}
+    },
+    "#subnet": {
+      "id": "#subnet",
+      "run_id": "54b44f2ac28247dcbf5fe156d2bc52cc",
+      "name": "CalcApp:VPC:Subnet",
+      "description": "",
+      "paths": [
+        [
+          "CalcApp",
+          "VPC"
+        ],
+        []
+      ],
+      "custom": {}
+    },
+    "#web_server": {
+      "id": "#web_server",
+      "run_id": "54b44f2ac28247dcbf5fe156d2bc52cc",
+      "name": "CalcApp:Web:Server",
+      "description": "",
+      "paths": [
+        [
+          "CalcApp",
+          "Web"
+        ],
+        []
+      ],
+      "custom": {}
+    },
+    "#Calculator": {
+      "id": "#Calculator",
+      "run_id": "54b44f2ac28247dcbf5fe156d2bc52cc",
+      "name": "CalcApp:Web:Server:Calculator",
+      "description": "",
+      "paths": [
+        [],
+        [
+          "CalcApp",
+          "Web",
+          "Server"
+        ]
+      ],
+      "custom": {}
+    },
+    "#logout": {
+      "id": "#logout",
+      "run_id": "54b44f2ac28247dcbf5fe156d2bc52cc",
+      "name": "CalcApp:Web:Server:Logout",
+      "description": "",
+      "paths": [
+        [
+          "CalcApp",
+          "Web",
+          "Server"
+        ],
+        []
+      ],
+      "custom": {}
+    },
+    "#calculator": {
+      "id": "#calculator",
+      "run_id": "54b44f2ac28247dcbf5fe156d2bc52cc",
+      "name": "CalcApp:Web:Server:Calculator",
+      "description": "",
+      "paths": [
+        [
+          "CalcApp",
+          "Web",
+          "Server"
+        ],
+        []
+      ],
+      "custom": {}
+    }
+  }
+}
