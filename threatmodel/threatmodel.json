@@ -1,47 +1,210 @@
 {
-  "mitigations": [],
-  "exposures": [],
+  "mitigations": [
+    {
+      "control": "#iv",
+      "threat": "#xss",
+      "component": "#calculator",
+      "description": "",
+      "custom": {},
+      "source": {
+        "annotation": "@mitigates #calculator against #xss with #iv",
+        "code": "# @mitigates #calculator against #xss with #iv\n\n\n@flask_app.route('/calculate2', methods = ['POST'])\ndef calculate_post2():\n    print(request.form)\n",
+        "filename": "/home/kali/Desktop/secure_rest_calculator-main/app/main.py",
+        "line": 1
+      }
+    },
+    {
+      "control": "#lc",
+      "threat": "#bufferoverflow",
+      "component": "#calculator",
+      "description": "",
+      "custom": {},
+      "source": {
+        "annotation": "@mitigates #calculator against #bufferoverflow with #lc",
+        "code": "# @mitigates #calculator against #bufferoverflow with #lc\n\n@flask_app.route('/calculate2', methods = ['POST'])\ndef calculate_post2():\n    print(request.form)\n    number_1 = request.form.get('number_1', type = int)\n",
+        "filename": "/home/kali/Desktop/secure_rest_calculator-main/app/main.py",
+        "line": 1
+      }
+    }
+  ],
+  "exposures": [
+    {
+      "threat": "#ds",
+      "component": "#login",
+      "details": "not implementing login attempt lockouts",
+      "description": "",
+      "custom": {},
+      "source": {
+        "annotation": "@exposes #login to #ds with not implementing login attempt lockouts",
+        "code": "# @exposes #login to #ds with not implementing login attempt lockouts\n\n@flask_app.route('/login')\ndef login_page():\n    return render_template('login.html')\n\n",
+        "filename": "/home/kali/Desktop/secure_rest_calculator-main/app/main.py",
+        "line": 1
+      }
+    },
+    {
+      "threat": "#bfa",
+      "component": "#login",
+      "details": "not using login attempt lockouts",
+      "description": "",
+      "custom": {},
+      "source": {
+        "annotation": "@exposes #login to #bfa with not using login attempt lockouts",
+        "code": "#@exposes #login to #bfa with not using login attempt lockouts\n@flask_app.route('/login')\ndef login_page():\n    return render_template('login.html')\n\ndef create_token(username, password):\n",
+        "filename": "/home/kali/Desktop/secure_rest_calculator-main/app/main.py",
+        "line": 1
+      }
+    },
+    {
+      "threat": "#sqli",
+      "component": "#db",
+      "details": "not sanitizing user inputs or using prepared statements",
+      "description": "",
+      "custom": {},
+      "source": {
+        "annotation": "@exposes #db to #sqli with not sanitizing user inputs or using prepared statements",
+        "code": "# @exposes #db to #sqli with not sanitizing user inputs or using prepared statements\n\n@flask_app.route('/authenticate', methods = ['POST'])\ndef authenticate_users():\n    data = request.form\n    username = data['username']\n",
+        "filename": "/home/kali/Desktop/secure_rest_calculator-main/app/main.py",
+        "line": 1
+      }
+    },
+    {
+      "threat": "#xss",
+      "component": "#calculator",
+      "details": "NOT sanitizing user inputs in",
+      "description": "",
+      "custom": {},
+      "source": {
+        "annotation": "@exposes #calculator to #xss with NOT sanitizing user inputs in",
+        "code": "# @exposes #calculator to #xss with NOT sanitizing user inputs in\n\n\n@flask_app.route('/calculate2', methods = ['POST'])\ndef calculate_post2():\n    print(request.form)\n",
+        "filename": "/home/kali/Desktop/secure_rest_calculator-main/app/main.py",
+        "line": 1
+      }
+    },
+    {
+      "threat": "#bufferoverflow",
+      "component": "#calculator",
+      "details": "not implementing #lc",
+      "description": "",
+      "custom": {},
+      "source": {
+        "annotation": "@exposes #calculator to #bufferoverflow with not implementing #lc",
+        "code": "# @exposes #calculator to #bufferoverflow with not implementing #lc\n\n@flask_app.route('/calculate2', methods = ['POST'])\ndef calculate_post2():\n    print(request.form)\n    number_1 = request.form.get('number_1', type = int)\n",
+        "filename": "/home/kali/Desktop/secure_rest_calculator-main/app/main.py",
+        "line": 1
+      }
+    }
+  ],
   "transfers": [],
   "acceptances": [],
   "connections": [
     {
       "source_component": "#guest",
       "destination_component": "#index",
-      "direction": "to",
+      "direction": "with",
       "details": "HTTP-GET",
       "description": "",
       "custom": {},
       "source": {
-        "annotation": "@connects #guest to #index with HTTP-GET",
-        "code": "# @connects #guest to #index with HTTP-GET\n@flask_app.route('/')\ndef index_page():\n    print(request.headers)\n    isUserLoggedIn = False\n    if 'token' in request.cookies:\n",
+        "annotation": "@connects #guest with #index with HTTP-GET",
+        "code": "# @connects #guest with #index with HTTP-GET\n@flask_app.route('/')\ndef index_page():\n    print(request.headers)\n    isUserLoggedIn = False\n    if 'token' in request.cookies:\n",
         "filename": "/home/kali/Desktop/secure_rest_calculator-main/app/main.py",
         "line": 1
       }
     },
     {
-      "source_component": "#guest",
+      "source_component": "#index",
+      "destination_component": "#guest",
+      "direction": "with",
+      "details": "HTTP-GET",
+      "description": "",
+      "custom": {},
+      "source": {
+        "annotation": "@connects #index with #guest with HTTP-GET",
+        "code": "# @connects #index with #guest with HTTP-GET\n@flask_app.route('/')\ndef index_page():\n    print(request.headers)\n    isUserLoggedIn = False\n    if 'token' in request.cookies:\n",
+        "filename": "/home/kali/Desktop/secure_rest_calculator-main/app/main.py",
+        "line": 1
+      }
+    },
+    {
+      "source_component": "#index",
+      "destination_component": "#login",
+      "direction": "with",
+      "details": "HTTP-GET",
+      "description": "",
+      "custom": {},
+      "source": {
+        "annotation": "@connects #index with #login with HTTP-GET",
+        "code": "# @connects #index with #login with HTTP-GET\n\n\n@flask_app.route('/login')\ndef login_page():\n    return render_template('login.html')\n",
+        "filename": "/home/kali/Desktop/secure_rest_calculator-main/app/main.py",
+        "line": 1
+      }
+    },
+    {
+      "source_component": "#login",
+      "destination_component": "#db",
+      "direction": "with",
+      "details": "SQL-Request",
+      "description": "",
+      "custom": {},
+      "source": {
+        "annotation": "@connects #login with #db with SQL-Request",
+        "code": "# @connects #login with #db with SQL-Request\n\n@flask_app.route('/authenticate', methods = ['POST'])\ndef authenticate_users():\n    data = request.form\n    username = data['username']\n",
+        "filename": "/home/kali/Desktop/secure_rest_calculator-main/app/main.py",
+        "line": 1
+      }
+    },
+    {
+      "source_component": "#db",
+      "destination_component": "#login",
+      "direction": "with",
+      "details": "SQL-Response",
+      "description": "",
+      "custom": {},
+      "source": {
+        "annotation": "@connects #db with #login with SQL-Response",
+        "code": "# @connects #db with #login with SQL-Response\n\n@flask_app.route('/authenticate', methods = ['POST'])\ndef authenticate_users():\n    data = request.form\n    username = data['username']\n",
+        "filename": "/home/kali/Desktop/secure_rest_calculator-main/app/main.py",
+        "line": 1
+      }
+    },
+    {
+      "source_component": "#login",
       "destination_component": "#calculator",
       "direction": "to",
-      "details": "HTTP-GET",
+      "details": "HTTP-POST",
       "description": "",
       "custom": {},
       "source": {
-        "annotation": "@connects #guest to #calculator with HTTP-GET",
-        "code": "# @connects #guest to #calculator with HTTP-GET\n@flask_app.route('/calculator', methods = ['GET'])\ndef calculator_get():\n    isUserLoggedIn = False\n    if 'token' in request.cookies:\n        isUserLoggedIn = verify_token(request.cookies['token'])\n",
+        "annotation": "@connects #login to #calculator with HTTP-POST",
+        "code": "# @connects #login to #calculator with HTTP-POST\n\n\n\n@flask_app.route('/calculate2', methods = ['POST'])\ndef calculate_post2():\n",
         "filename": "/home/kali/Desktop/secure_rest_calculator-main/app/main.py",
         "line": 1
       }
     },
     {
-      "source_component": "#guest",
+      "source_component": "#calculator",
       "destination_component": "#logout",
       "direction": "to",
       "details": "HTTP-GET",
       "description": "",
       "custom": {},
       "source": {
-        "annotation": "@connects #guest to #logout with HTTP-GET",
-        "code": "# @connects #guest to #logout with HTTP-GET\n@flask_app.route('/logout', methods = ['GET'])\ndef logout():\n    response = make_response(redirect('/'))\n    response.delete_cookie('token')\n    return response\n",
+        "annotation": "@connects #calculator to #logout with HTTP-GET",
+        "code": "# @connects #calculator to #logout with HTTP-GET\n\n\n\n@flask_app.route('/calculate2', methods = ['POST'])\ndef calculate_post2():\n",
+        "filename": "/home/kali/Desktop/secure_rest_calculator-main/app/main.py",
+        "line": 1
+      }
+    },
+    {
+      "source_component": "#logout",
+      "destination_component": "#index",
+      "direction": "to",
+      "details": "HTTP-GET",
+      "description": "",
+      "custom": {},
+      "source": {
+        "annotation": "@connects #logout to #index with HTTP-GET",
+        "code": "# @connects #logout to #index with HTTP-GET\n@flask_app.route('/logout', methods = ['GET'])\ndef logout():\n    response = make_response(redirect('/'))\n    response.delete_cookie('token')\n    return response\n",
         "filename": "/home/kali/Desktop/secure_rest_calculator-main/app/main.py",
         "line": 1
       }
@@ -63,5 +226,5 @@
   ],
   "reviews": [],
   "tests": [],
-  "run_id": "54b44f2ac28247dcbf5fe156d2bc52cc"
+  "run_id": "f24c4cc3947e4da6a3aa41b9b3c862b6"
 }

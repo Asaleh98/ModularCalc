@@ -18,7 +18,8 @@ def verify_token(token):
     else:
         return False
 # @component CalcApp:Web:Server:Index(#index)
-# @connects #guest to #index with HTTP-GET
+# @connects #guest with #index with HTTP-GET
+# @connects #index with #guest with HTTP-GET
 @flask_app.route('/')
 def index_page():
     print(request.headers)
@@ -38,7 +39,14 @@ def index_page():
 @flask_app.route('/help')
 def help_page():
     return "This is the help page"
+# @component CalcApp:Web:Server:login(#login)
+# @connects #index with #login with HTTP-GET
 
+# @threat Distrubuted Denial of service (#ds)
+# @exposes #login to #ds with not implementing login attempt lockouts
+
+#@threat BruteForceAttack (#bfa)
+#@exposes #login to #bfa with not using login attempt lockouts
 @flask_app.route('/login')
 def login_page():
     return render_template('login.html')
@@ -48,6 +56,12 @@ def create_token(username, password):
     print(validity)
     token = jwt.encode({'user_id': 123154, 'username': username, 'exp': validity}, SECRET_KEY, "HS256")
     return token
+
+# @component CalcApp:Web:Server:login:DB(#db)
+# @connects #login with #db with SQL-Request
+# @connects #db with #login with SQL-Response
+# @threat SQL injection (#sqli)
+# @exposes #db to #sqli with not sanitizing user inputs or using prepared statements
 
 @flask_app.route('/authenticate', methods = ['POST'])
 def authenticate_users():
@@ -62,8 +76,7 @@ def authenticate_users():
     #resp.set_cookie("loggedIn", "True")
     resp.set_cookie('token', user_token)
     return resp
-# @component CalcApp:Web:Server:Calculator(#calculator)
-# @connects #guest to #calculator with HTTP-GET
+
 @flask_app.route('/calculator', methods = ['GET'])
 def calculator_get():
     isUserLoggedIn = False
@@ -85,6 +98,19 @@ def calculate_post():
     result = calc_functions.process(number_1, number_2, operation)
 
     return str(result)
+# @component CalcApp:Web:Server:Calculator(#calculator)
+# @connects #login to #calculator with HTTP-POST
+# @connects #calculator to #logout with HTTP-GET
+
+# @threat Cross-Site-Scripting (#xss)
+# @exposes #calculator to #xss with NOT sanitizing user inputs in
+# @control InputValidation (#iv)
+# @mitigates #calculator against #xss with #iv
+
+# @threat BufferOverflow (#bufferoverflow)
+# @exposes #calculator to #bufferoverflow with not implementing #lc
+# @control LengthChecking (#lc)
+# @mitigates #calculator against #bufferoverflow with #lc
 
 @flask_app.route('/calculate2', methods = ['POST'])
 def calculate_post2():
@@ -101,7 +127,7 @@ def calculate_post2():
     }
     return make_response(jsonify(response_data))
 # @component CalcApp:Web:Server:Logout(#logout)
-# @connects #guest to #logout with HTTP-GET
+# @connects #logout to #index with HTTP-GET
 @flask_app.route('/logout', methods = ['GET'])
 def logout():
     response = make_response(redirect('/'))

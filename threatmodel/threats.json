@@ -1,3 +1,53 @@
 {
-  "threats": {}
+  "threats": {
+    "#xss": {
+      "id": "#xss",
+      "run_id": "f24c4cc3947e4da6a3aa41b9b3c862b6",
+      "name": "Cross-Site-Scripting",
+      "description": "",
+      "custom": {}
+    },
+    "#bufferoverflow": {
+      "id": "#bufferoverflow",
+      "run_id": "f24c4cc3947e4da6a3aa41b9b3c862b6",
+      "name": "BufferOverflow",
+      "description": "",
+      "custom": {}
+    },
+    "#ds": {
+      "id": "#ds",
+      "run_id": "f24c4cc3947e4da6a3aa41b9b3c862b6",
+      "name": "Distrubuted Denial of service",
+      "description": "",
+      "custom": {}
+    },
+    "#bfa": {
+      "id": "#bfa",
+      "run_id": "f24c4cc3947e4da6a3aa41b9b3c862b6",
+      "name": "BruteForceAttack",
+      "description": "",
+      "custom": {}
+    },
+    "#a_bfa": {
+      "id": "#a_bfa",
+      "run_id": "f24c4cc3947e4da6a3aa41b9b3c862b6",
+      "name": "a #bfa",
+      "description": "",
+      "custom": {}
+    },
+    "#sqli": {
+      "id": "#sqli",
+      "run_id": "f24c4cc3947e4da6a3aa41b9b3c862b6",
+      "name": "SQL injection",
+      "description": "",
+      "custom": {}
+    },
+    "#sql": {
+      "id": "#sql",
+      "run_id": "f24c4cc3947e4da6a3aa41b9b3c862b6",
+      "name": "",
+      "description": "",
+      "custom": {}
+    }
+  }
 }
